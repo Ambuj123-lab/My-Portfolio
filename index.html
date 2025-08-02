@@ -3,86 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Professional Web Page</title>
-    <!-- Basic styling for the web page -->
+    <title>Ambuj's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #1a202c; /* Tailwind's gray-900 */
-            color: #e2e8f0; /* Tailwind's gray-200 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 2rem;
-            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
-        .card {
-            background-color: #2d3748; /* Tailwind's gray-800 */
-            border-radius: 1rem; /* Rounded corners */
-            padding: 2rem;
-            max-width: 500px;
+        .project-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .project-details.expanded {
+            max-height: 500px; /* Adjust this value based on content height */
+            transition: max-height 0.3s ease-in;
+        }
+        /* For the video section iframe */
+        .video-container {
+            position: relative;
             width: 100%;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
         }
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid #4a5568; /* Tailwind's gray-600 */
-            object-fit: cover;
-            margin-bottom: 1rem;
-        }
-        .heading {
-            font-size: 1.875rem; /* Tailwind's text-3xl */
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        .subtitle {
-            font-size: 1rem;
-            color: #a0aec0; /* Tailwind's gray-400 */
-            margin-bottom: 1rem;
-        }
-        .list-item {
-            text-align: left;
-            margin: 0.5rem 0;
-        }
-        .button {
-            display: inline-block;
-            background-color: #48bb78; /* Tailwind's green-500 */
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            transition: background-color 0.2s;
-        }
-        .button:hover {
-            background-color: #38a169; /* Tailwind's green-600 */
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
-<body>
-    <div class="card">
-        <img class="profile-img" src="https://placehold.co/120x120/0f172a/64748b?text=AMBUJ" alt="Ambuj's Profile Picture">
-        <h1 class="heading">Hello, Ambuj!</h1>
-        <p class="subtitle">This is your updated profile page.</p>
-        
-        <p>You have successfully created and styled your first web page using Visual Studio Code. This page includes basic HTML and CSS to look much more professional.</p>
+<body class="min-h-screen bg-gradient-to-br from-gray-950 to-red-950 text-slate-300">
 
-        <p class="list-item"><b>What you've learned so far:</b></p>
-        <ul style="list-style-type: disc; padding-left: 20px;">
-            <li class="list-item"><b>Career Transition:</b> Made a significant career shift from a Telecom background to Generative AI and coding.</li>
-            <li class="list-item"><b>Self-Learning & Development:</b> Acquired new skills and certifications through self-learning, leveraging tools like Gemini and ChatGPT.</li>
-            <li class="list-item"><b>AI Project Experience:</b> Developed a functional AI bot, demonstrating practical application of theoretical knowledge.</li>
-            <li class="list-item"><b>Core Skills:</b> Gained proficiency in foundational web technologies (HTML, CSS) and project management with Git.</li>
-        </ul>
+    <header class="sticky top-0 z-50 bg-gray-950 bg-opacity-90 backdrop-blur-md">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-red-500">Ambuj</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#about" class="hover:text-red-500 transition-colors">About</a>
+                <a href="#skills" class="hover:text-red-500 transition-colors">Skills</a>
+                <a href="#certifications" class="hover:text-red-500 transition-colors">Certifications</a>
+                <a href="#projects" class="hover:text-red-500 transition-colors">Projects</a>
+                <a href="#videos" class="hover:text-red-500 transition-colors">Videos</a>
+                <a href="#contact" class="hover:text-red-500 transition-colors">Contact</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-slate-300 hover:text-red-500 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-950">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-700 hover:text-white">About</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Skills</a>
+                <a href="#certifications" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Certifications</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Projects</a>
+                <a href="#videos" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Videos</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-700 hover:text-white">Contact</a>
+            </div>
+        </div>
+    </header>
 
-        <a href="#" class="button">Visit My GitHub</a>
-    </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <section id="hero" class="py-20 md:py-32 flex flex-col items-center text-center">
+            <img src="https://i.ibb.co/GfvgCR2z/Whats-App-Image-2025-07-28-at-18-00-42.jpg" alt="Ambuj's Profile Picture" class="rounded-full w-36 h-36 border-4 border-red-500 mb-6">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-2">Hello, I'm <span class="text-red-500">Ambuj Kumar Tripathi</span></h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl">A passionate developer transitioning from a telecom background to the dynamic world of Generative AI and coding. I am a dedicated self-learner building my foundation in web development.</p>
+        </section>
+
+        <section id="about" class="py-16 md:py-20 border-t border-slate-700">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">About Me</h2>
+            <div class="max-w-3xl mx-auto text-lg text-slate-400 space-y-4">
+                <p>My name is Ambuj and my journey has been from a Telecom professional to a self-taught coder and AI enthusiast. I have started my venture into the world of Generative AI and coding by using tools like Gemini and ChatGPT.</p>
+                <p>My goal is to use my new skills to create meaningful projects. This portfolio is a testament to my growth and learning.</p>
+            </div>
+            <div class="flex justify-center mt-8" id="resume-link">
+                <a href="https://drive.google.com/file/d/1dXgMA3TwM4aJRFyi8MNvzFB5_IbRRZtp/view?usp=sharing" target="_blank" class="inline-block bg-red-600 text-white font-semibold px-8 py-3 rounded-full hover:bg-red-500 transition-colors shadow-lg">View Resume</a>
+            </div>
+        </section>
+
+        <section id="skills" class="py-16 md:py-20 border-t border-slate-700">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">My Skills</h2>
+            <div class="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
+                <span class="bg-red-600 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-md">HTML</span>
+                <span class="bg-red-600 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-md">CSS</span>
+                <span class="bg-red-600 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-md">Git</span>
+                <span class="bg-red-600 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-md">GitHub</span>
+                <span class="bg-red-600 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-md">Generative AI</span>
+                <span class="bg-red-600 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-md">Gemini API</span>
+                <span class="bg-red-600 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-md">Python</span>
+            </div>
+        </section>
+
+        <section id="certifications" class="py-16 md:py-20 border-t border-slate-700">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Certifications</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Deloitte Australia Data Analytics</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: Deloitte-Forage</p>
+                    <a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_heKZ627pQGvA4pRDu_1753288461830_completion_certificate.pdf" target="_blank" class="inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-500 transition-colors">
+                        View Certificate
+                    </a>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Prompt Design in Vertex AI (Lab-based skill badge)</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: Google Cloud</p>
+                    <a href="https://www.credly.com/badges/6152fb18-e123-4be4-a865-3cb2b6ee43db/public_url" target="_blank" class="inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-500 transition-colors">
+                        Verify on Credly
+                    </a>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Get Started with Language Models in Azure Databricks</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: Microsoft</p>
+                    <p class="text-slate-400 text-sm italic mt-2">Certificate available on request</p>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Review responsible AI principles for language models in Azure Databricks</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: Microsoft</p>
+                    <p class="text-slate-400 text-sm italic mt-2">Certificate available on request</p>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Build Real World AI Applications with Gemini and Imagen (Lab-based skill badge)</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: Google Cloud</p>
+                    <a href="https://www.credly.com/badges/7bb315d0-2c8c-46eb-81b0-dce8ed4b294c/public_url" target="_blank" class="inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-500 transition-colors">
+                        Verify on Credly
+                    </a>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Explore Generative AI with the Vertex AI Gemini API Skill Badge</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: Google Cloud</p>
+                    <a href="https://www.credly.com/badges/a1e28d0d-aeaf-4b3e-b0b5-7f6182f11936/public_url" target="_blank" class="inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-500 transition-colors">
+                        Verify on Credly
+                    </a>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Artificial Intelligence Fundamentals</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: IBM</p>
+                    <a href="https://www.credly.com/badges/deeb76f8-21d9-4e7a-bcf0-7202830ec128/public_url" target="_blank" class="inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-500 transition-colors">
+                        Verify on Credly
+                    </a>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Generative AI in Action</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: IBM</p>
+                    <a href="https://www.credly.com/badges/ac6e07dd-a3df-447b-b921-6ead86084376/public_url" target="_blank" class="inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-500 transition-colors">
+                        Verify on Credly
+                    </a>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Deep Learning Essentials</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: IBM</p>
+                    <a href="https://www.credly.com/badges/f285fa9d-3e17-4eb0-81e3-07b9ab19253f/public_url" target="_blank" class="inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-500 transition-colors">
+                        Verify on Credly
+                    </a>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">LFS118: Ethical Principles for Conversational AI</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: The Linux Foundation</p>
+                    <a href="https://www.credly.com/badges/630ce029-70bb-40de-89af-010babba2129/public_url" target="_blank" class="inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-500 transition-colors">
+                        Verify on Credly
+                    </a>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-800">
+                    <h3 class="text-xl font-semibold text-white mb-2">Build Your Own Chatbot - Level 1</h3>
+                    <p class="text-slate-400 text-sm mb-4">Issued by: IBM</p>
+                    <a href="https://www.credly.com/badges/4a69eaba-6e99-44ac-a17e-195c024c5924/public_url" target="_blank" class="inline-block bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-500 transition-colors">
+                        Verify on Credly
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-16 md:py-20 border-t border-slate-700">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-white mb-2">AI Resume Chatbot (IBM WatsonX & Netlify)</h3>
+                    <p class="text-slate-400 text-sm mb-4">A chatbot built using IBM WatsonX Assistant to answer resume questions, deployed on Netlify.</p>
+                    <button class="view-project-btn inline-block bg-gray-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600 transition-colors">View Project</button>
+                    <div class="project-details mt-4 text-sm text-slate-400">
+                        <p class="mt-2">In this project, I used IBM WatsonX Assistant to create a chatbot. I designed the conversation flow, intents, and entities. I then embedded this bot into an HTML webpage and deployed it on Netlify.</p>
+                        <p class="mt-2">**Technologies Used:** IBM WatsonX Assistant, HTML, CSS, Netlify</p>
+                    </div>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-white mb-2">Ambuj AI ChatBot (Gradio & Hugging Face Spaces)</h3>
+                    <p class="text-slate-400 text-sm mb-4">Prompt-engineered resume chatbot built with Python and Gradio, deployed on Hugging Face Spaces.</p>
+                    <button class="view-project-btn inline-block bg-gray-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600 transition-colors">View Project</button>
+                    <div class="project-details mt-4 text-sm text-slate-400">
+                        <p class="mt-2">Developed a rule-based chatbot using Python and Gradio's ChatInterface, hosted live on Hugging Face Spaces. The bot responds to interview-style questions using pre-defined keyword logic for domains like work experience, certifications, tools, and projects.</p>
+                        <p class="mt-2">**Technologies Used:** Python, Gradio, Hugging Face Spaces.</p>
+                        <p class="mt-2">**Project Scope:** Personal branding, recruiter interaction, and AI-based resume assistant.</p>
+                        <p class="mt-2">**Future Scope:** Model integration via Hugging Face Transformers (e.g., DialoGPT, DistilGPT2). Ability to upgrade with fine-tuned LLMs based on system specifications. Can be scaled to handle semantic queries via NLP libraries (spaCy, transformers).</p>
+                    </div>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-white mb-2">LLaMA 3.3.70B Model Integration</h3>
+                    <p class="text-slate-400 text-sm mb-4">A project demonstrating the integration of the LLaMA 3.3.70B model for advanced text generation.</p>
+                    <button class="view-project-btn inline-block bg-gray-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600 transition-colors">View Project</button>
+                    <div class="project-details mt-4 text-sm text-slate-400">
+                        <p class="mt-2">In this project, I used Meta's LLaMA 3.3.70B model to create a conversational bot. This bot is integrated via an API, which can handle complex and creative queries. This project demonstrates my understanding of integrating an advanced-level LLM into a web application.</p>
+                        <p class="mt-2">**Technologies Used:** Python, LLM (LLaMA 3.3.70B), API Integration</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="videos" class="py-16 md:py-20 border-t border-slate-700">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Sample Videos</h2>
+            <p class="text-lg text-slate-400 text-center mb-10">Here you can watch my AI-generated videos, some of which have received over 3.3K+ views.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-gray-900 rounded-xl p-4 shadow-lg">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/-rbtf3-IwEs" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="mt-4 text-center text-slate-400">This person doesnot exists</p>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-4 shadow-lg">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/fYKnZxKvQrI" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="mt-4 text-center text-slate-400">Neural Control explainer</p>
+                </div>
+                <div class="bg-gray-900 rounded-xl p-4 shadow-lg md:col-span-2 mx-auto w-full max-w-md">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/4MDaOE1q5NI" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="mt-4 text-center text-slate-400">Explainer Truth</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-20 border-t border-slate-700">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Contact Me</h2>
+            <div class="max-w-xl mx-auto text-center">
+                <p class="text-lg text-slate-400 mb-6">You can connect with me through the following platforms:</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118" target="_blank" class="text-white hover:text-red-500 transition-colors flex items-center space-x-2">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                        <span class="sr-only">LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/Ambuj123-lab" target="_blank" class="text-white hover:text-red-500 transition-colors flex items-center space-x-2">
+                        <i class="fab fa-github text-2xl"></i>
+                        <span class="sr-only">GitHub</span>
+                    </a>
+                    <a href="mailto:kumarambuj8@gmail.com" class="text-white hover:text-red-500 transition-colors flex items-center space-x-2">
+                        <i class="fas fa-envelope text-2xl"></i>
+                        <span class="sr-only">Email</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-slate-700 text-center text-sm text-slate-500">
+        <p>© 2024 Ambuj. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const viewProjectButtons = document.querySelectorAll('.view-project-btn');
+
+        // Mobile menu toggle logic
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Project details expand/collapse logic
+        viewProjectButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const projectDetails = button.nextElementSibling;
+                projectDetails.classList.toggle('expanded');
+                if (projectDetails.classList.contains('expanded')) {
+                    button.textContent = 'Hide Details';
+                } else {
+                    button.textContent = 'View Project';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
